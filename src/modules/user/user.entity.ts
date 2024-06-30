@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { UserDocument } from './user.interface';
 const { Schema, model } = mongoose;
 
@@ -33,4 +33,7 @@ const userSchema = new Schema<UserDocument>(
   }
 );
 
-export const User = model<UserDocument>('User', userSchema);
+export const User: Model<UserDocument> = model<UserDocument>(
+  'User',
+  userSchema
+);
