@@ -8,6 +8,7 @@ const hashTagSchema = new Schema<HashTagDocument>(
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
   },
   {
