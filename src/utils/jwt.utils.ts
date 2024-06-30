@@ -5,6 +5,7 @@ import uuid4 from 'uuid4';
 import { RedisClient } from './redis.utils';
 import { customError } from './error.utils';
 import { INVALID_SESSION } from '../constants/error';
+import { envs } from '../env';
 
 const publicKey = readFileSync(
   join(`${__dirname}/../../keys/jwtPublic.key`),
@@ -24,7 +25,11 @@ const options: SignOptions = {
 };
 
 const generateJWT = async (payload: any) => {
-  return await sign(payload, privateKey, options);
+  return await sign(
+    payload,
+    { key: privateKey, passphrase: envs.SECRET_KEY || 'secret' },
+    options
+  );
 };
 
 const getSessionId = () => {

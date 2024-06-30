@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
 export interface DiscussionDocument extends Document {
   user: Schema.Types.ObjectId | string;

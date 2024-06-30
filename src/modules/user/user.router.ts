@@ -19,6 +19,10 @@ UserRouter.get('/', Controller.find);
 
 UserRouter.patch('/', Controller.update);
 
+UserRouter.post('/requestOtp', Controller.requestOtp);
+
+UserRouter.post('/login', Controller.login);
+
 UserRouter.get('/:id', Controller.findOne);
 
 UserRouter.delete('/:id', Controller.delete);
