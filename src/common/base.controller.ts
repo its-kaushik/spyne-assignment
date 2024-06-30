@@ -1,6 +1,6 @@
-import { Response, Request } from 'express';
+import { Response, Request, NextFunction } from 'express';
 import { NOT_FOUND } from '../constants/error';
-import { customError, ErrorResponse, SuccessResponse } from '../utils';
+import { customError, SuccessResponse } from '../utils';
 
 export interface SerializerRequest extends Request {
   file?: any;
@@ -19,7 +19,11 @@ export abstract class BaseController {
 
   protected abstract getProcessor(): any;
 
-  create = async (req: SerializerRequest, res: Response) => {
+  create = async (
+    req: SerializerRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     let { body: payload } = req;
     try {
       const {
@@ -44,11 +48,11 @@ export abstract class BaseController {
       }
       SuccessResponse(res, record);
     } catch (error) {
-      ErrorResponse(res, error);
+      next(error);
     }
   };
 
-  find = async (req: SerializerRequest, res: Response) => {
+  find = async (req: SerializerRequest, res: Response, next: NextFunction) => {
     let { query = {} } = req;
     const {
       populate = null,
@@ -66,11 +70,15 @@ export abstract class BaseController {
       }
       SuccessResponse(res, record);
     } catch (error) {
-      ErrorResponse(res, error);
+      next(error);
     }
   };
 
-  findOne = async (req: SerializerRequest, res: Response) => {
+  findOne = async (
+    req: SerializerRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { id } = req.params;
     try {
       const { populate = null, select = null, transform = null } = req;
@@ -80,11 +88,15 @@ export abstract class BaseController {
       }
       SuccessResponse(res, record);
     } catch (error) {
-      ErrorResponse(res, error);
+      next(error);
     }
   };
 
-  update = async (req: SerializerRequest, res: Response) => {
+  update = async (
+    req: SerializerRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { query } = req.body;
     let { payload } = req.body;
     try {
@@ -95,18 +107,18 @@ export abstract class BaseController {
       await this.processor.update(query, payload);
       SuccessResponse(res);
     } catch (error) {
-      ErrorResponse(res, error);
+      next(error);
     }
   };
 
-  delete = async (req: Request, res: Response) => {
+  delete = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     try {
       const response = await this.processor.delete({ _id: id });
       if (!response.deletedCount) throw customError(NOT_FOUND);
       SuccessResponse(res, null, 204);
     } catch (error) {
-      ErrorResponse(res, error);
+      next(error);
     }
   };
 }
