@@ -4,6 +4,7 @@ import { Validate } from '../../middlewares/validations.middleware';
 import { createUserValidation } from './user.validation';
 import { Serialize } from '../../middlewares/serializer.middleware';
 import { createUserSerializer } from './user.serializer';
+import { isAuthenticated } from '../../middlewares/auth.middleware';
 
 const UserRouter = Router();
 const Controller = new UserController();
@@ -18,6 +19,10 @@ UserRouter.post(
 UserRouter.get('/', Controller.find);
 
 UserRouter.patch('/', Controller.update);
+
+UserRouter.post('/requestOtp', Controller.requestOtp);
+
+UserRouter.post('/login', Controller.login);
 
 UserRouter.get('/:id', Controller.findOne);
 
