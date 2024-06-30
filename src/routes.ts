@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import UserRouter from './modules/user/user.router';
 import HashTagRouter from './modules/hashtag/hashtag.router';
+import DiscussionRouter from './modules/discussion/discussion.router';
 
 const router = Router();
 
@@ -10,5 +11,6 @@ router.get('/health', async (req: Request, res: Response) => {
 
 router.use('/user', UserRouter);
 router.use('/hashtag', HashTagRouter);
+router.use('/discussion', DiscussionRouter);
 
 export default router;
