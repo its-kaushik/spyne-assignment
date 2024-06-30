@@ -4,7 +4,6 @@ import { Validate } from '../../middlewares/validations.middleware';
 import { createUserValidation } from './user.validation';
 import { Serialize } from '../../middlewares/serializer.middleware';
 import { createUserSerializer } from './user.serializer';
-import { isAuthenticated } from '../../middlewares/auth.middleware';
 
 const UserRouter = Router();
 const Controller = new UserController();
