@@ -3,7 +3,7 @@ import UserController from './user.controller';
 import { Validate } from '../../middlewares/validations.middleware';
 import { createUserValidation } from './user.validation';
 import { Serialize } from '../../middlewares/serializer.middleware';
-import { createUserSerializer } from './user.serializer';
+import { createUserSerializer, getAllUserSerializer } from './user.serializer';
 
 const UserRouter = Router();
 const Controller = new UserController();
@@ -15,7 +15,7 @@ UserRouter.post(
   Controller.create
 );
 
-UserRouter.get('/', Controller.find);
+UserRouter.get('/', Serialize(getAllUserSerializer), Controller.find);
 
 UserRouter.patch('/', Controller.update);
 
