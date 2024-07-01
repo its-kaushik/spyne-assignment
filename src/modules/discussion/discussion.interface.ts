@@ -5,6 +5,7 @@ export interface DiscussionDocument extends Document {
   text: string;
   imageLink?: string;
   hashtags: Schema.Types.ObjectId[];
+  views: number;
   createdAt: Date;
   updatedAt: Date;
 }

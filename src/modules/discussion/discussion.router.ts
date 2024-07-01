@@ -5,6 +5,7 @@ import { Serialize } from '../../middlewares/serializer.middleware';
 import {
   createDiscussionSerializer,
   getAllDiscussionsSerializer,
+  getDiscussionViewCountSerializer,
 } from './discussion.serializer';
 
 const DiscussionRouter = Router();
@@ -24,6 +25,12 @@ DiscussionRouter.get(
 );
 
 DiscussionRouter.patch('/', Controller.update);
+
+DiscussionRouter.get(
+  '/:id/viewcount',
+  Serialize(getDiscussionViewCountSerializer),
+  Controller.findOne
+);
 
 DiscussionRouter.get('/:id', Controller.findOne);
 

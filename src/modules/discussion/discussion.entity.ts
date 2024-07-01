@@ -22,6 +22,10 @@ const discussionSchema = new Schema<DiscussionDocument>(
         ref: 'HashTag',
       },
     ],
+    views: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

@@ -28,3 +28,7 @@ export const getAllDiscussionsSerializer: SerializerType = {
     return query;
   },
 };
+
+export const getDiscussionViewCountSerializer: SerializerType = {
+  select: ['views'],
+};
