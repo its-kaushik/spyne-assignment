@@ -25,6 +25,9 @@ const likeSchema = new Schema<LikeDocument>(
   }
 );
 
+likeSchema.index({ user: 1, discussion: 1 }, { unique: true, sparse: true });
+likeSchema.index({ user: 1, comment: 1 }, { unique: true, sparse: true });
+
 export const Like: Model<LikeDocument> = model<LikeDocument>(
   'Like',
   likeSchema
