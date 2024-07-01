@@ -7,3 +7,24 @@ export const createDiscussionSerializer: SerializerType = {
     return payload;
   },
 };
+
+export const getAllDiscussionsSerializer: SerializerType = {
+  queryTransform(query) {
+    if (query.text) {
+      const { text: searchText } = query;
+      query.text = {
+        $regex: searchText,
+        $options: 'i',
+      };
+    }
+
+    if (query.hashtags) {
+      const hashTagsArray = query.hashtags.split(',');
+      query.hashtags = {
+        $in: hashTagsArray,
+      };
+    }
+
+    return query;
+  },
+};

@@ -2,7 +2,10 @@ import { Router } from 'express';
 import DiscussionController from './discussion.controller';
 import { isAuthenticated } from '../../middlewares/auth.middleware';
 import { Serialize } from '../../middlewares/serializer.middleware';
-import { createDiscussionSerializer } from './discussion.serializer';
+import {
+  createDiscussionSerializer,
+  getAllDiscussionsSerializer,
+} from './discussion.serializer';
 
 const DiscussionRouter = Router();
 const Controller = new DiscussionController();
@@ -14,7 +17,11 @@ DiscussionRouter.post(
   Controller.create
 );
 
-DiscussionRouter.get('/', Controller.find);
+DiscussionRouter.get(
+  '/',
+  Serialize(getAllDiscussionsSerializer),
+  Controller.find
+);
 
 DiscussionRouter.patch('/', Controller.update);
 
