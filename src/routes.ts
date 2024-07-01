@@ -4,6 +4,7 @@ import HashTagRouter from './modules/hashtag/hashtag.router';
 import DiscussionRouter from './modules/discussion/discussion.router';
 import CommentRouter from './modules/comment/comment.router';
 import LikeRouter from './modules/like/like.router';
+import FollowRouter from './modules/follow/follow.router';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/hashtag', HashTagRouter);
 router.use('/discussion', DiscussionRouter);
 router.use('/comment', CommentRouter);
 router.use('/like', LikeRouter);
+router.use('/follow', FollowRouter);
 
 export default router;
